@@ -1,0 +1,38 @@
+{# Skill detail side panel — populated by app.js when a card is clicked. #}
+<aside id="skillDetail" class="skill-detail hidden" aria-hidden="true">
+    <div class="detail-header">
+        <div>
+            <div class="detail-name" id="detailName">—</div>
+            <div class="detail-meta" id="detailMeta"></div>
+        </div>
+        <button class="btn" id="detailClose" aria-label="关闭">×</button>
+    </div>
+
+    <div class="detail-tabs">
+        <button class="detail-tab active" data-pane="readme">SKILL.md</button>
+        <button class="detail-tab" data-pane="files">文件</button>
+    </div>
+
+    <div class="detail-pane" id="paneReadme">
+        <div id="detailReadme" class="markdown">加载中…</div>
+    </div>
+
+    <div class="detail-pane hidden" id="paneFiles">
+        <div class="detail-toolbar">
+            <input type="text" id="fileSearch" placeholder="过滤文件…" class="file-filter">
+            <button class="btn" id="refreshTree">刷新</button>
+        </div>
+        <div id="fileTree" class="file-tree">加载中…</div>
+        <div id="fileViewer" class="file-viewer hidden">
+            <div class="viewer-header">
+                <span id="viewerPath" class="viewer-path"></span>
+                <div class="viewer-actions">
+                    <button class="btn" id="viewerEdit">编辑</button>
+                    <button class="btn" id="viewerClose">关闭</button>
+                </div>
+            </div>
+            <div id="viewerBody" class="viewer-body"></div>
+        </div>
+    </div>
+</aside>
+<div id="detailBackdrop" class="detail-backdrop hidden"></div>

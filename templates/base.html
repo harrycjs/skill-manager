@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Skill Manager // 技能管理中心{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Skill Manager <span>// 技能管理中心</span></h1>
+            <div class="status-bar">
+                <span>SYSTEM: <span class="online">ONLINE</span></span>
+                <span id="currentTime"></span>
+            </div>
+        </header>
+
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block body_extra %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

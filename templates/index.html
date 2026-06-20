@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="tabs">
+    <div class="tab active" data-tab="import">导入 Skills</div>
+    <div class="tab" data-tab="install">安装新 Skill</div>
+    <div class="tab" data-tab="distribute">分发 Skills</div>
+</div>
+
+<div id="import" class="panel active">
+    <div class="panel-header">
+        <div class="panel-title">已安装的 Skills <span class="hint">点击卡片查看 / 编辑详情</span></div>
+        <button class="btn btn-success" id="refreshBtn">刷新列表</button>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Claude Code</div>
+        <div id="claudeSkills" class="skills-grid">
+            <div class="loading">加载中</div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section">
+        <div class="section-title">OpenCLAW Workspaces</div>
+        <div id="openclawWorkspaces"></div>
+    </div>
+</div>
+
+<div id="install" class="panel">
+    <div class="panel-header">
+        <div class="panel-title">从 Skillhub 安装技能</div>
+        <div class="panel-actions">
+            <a class="btn btn-link"
+               href="{{ skillhub_website_url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               title="在新标签页打开 Skillhub 技能市场,浏览可安装的技能">
+                浏览 Skillhub ↗
+            </a>
+            <button class="btn" id="installHubBtn">安装 / 重装 Skillhub CLI</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">从 Skillhub 安装技能</div>
+        <div class="input-group">
+            <label>技能名称:</label>
+            <input type="text" id="skillName" placeholder="例如: webapp-testing, pdf, docx 等">
+            <a class="link-inline"
+               href="{{ skillhub_website_url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               title="查看可安装的技能列表">
+                不知道装什么?打开技能市场 ↗
+            </a>
+        </div>
+
+        <div class="section-title">安装到:</div>
+        <div class="checkbox-group">
+            <label class="checkbox-item">
+                <input type="checkbox" id="targetClaude" checked>
+                Claude Code
+            </label>
+        </div>
+        <div id="workspaceCheckboxes"></div>
+
+        <button class="btn btn-success" id="installBtn">安装技能</button>
+        <div id="installMsg" class="message"></div>
+    </div>
+</div>
+
+<div id="distribute" class="panel">
+    <div class="panel-header">
+        <div class="panel-title">分发 Skills 到项目</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">选择目标项目文件夹</div>
+        <div class="folder-input">
+            <input type="text" id="targetFolder" placeholder="输入项目文件夹路径，如: D:/my-project">
+            <button class="btn" id="browseFolderBtn">选择文件夹</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">选择要分发的 Skills (从导入列表选择)</div>
+        <div class="checkbox-group" style="margin-bottom: 15px;">
+            <button class="btn" id="selectAllBtn">全选</button>
+            <button class="btn" id="deselectAllBtn">取消全选</button>
+        </div>
+        <div id="distributeSkills" class="skills-grid"></div>
+    </div>
+
+    <button class="btn btn-success" id="distributeBtn">开始分发</button>
+    <div id="distributeMsg" class="message"></div>
+</div>
+
+{% include "_skill_detail.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/markdown/markdown.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/javascript/javascript.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/yaml/yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/json/json.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/shell/shell.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/toml/toml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/xml/xml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/css/css.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/theme/material-darker.css">
+<script src="{{ url_for('static', filename='js/editor.js') }}"></script>
+{% endblock %}
